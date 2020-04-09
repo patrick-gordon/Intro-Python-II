@@ -1,4 +1,5 @@
 from room import Room
+from player import Player
 
 # Declare all the rooms
 
@@ -21,6 +22,13 @@ chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
 }
 
+#Choice Options
+choice_options = {
+
+
+    
+}
+
 
 # Link rooms together
 
@@ -33,11 +41,26 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+
+def show_welcome_message():
+    welcome_message = 'Welcome to my game!'
+    print(welcome_message)
+
+def get_choice():
+    choice = input('[n] north [s] south [e] east [w] west [q] quit \n')
+    return choice_options[str(choice)]
+
 #
 # Main
 #
 
 # Make a new player object that is currently in the 'outside' room.
+
+
+name = input('What is your gender? \n')
+
+newPlayer = Player(room['outside'])
+print(name)
 
 # Write a loop that:
 #
@@ -49,6 +72,13 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+
+
+
+
+
+
 
 
 
