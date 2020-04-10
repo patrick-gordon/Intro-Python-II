@@ -1,6 +1,6 @@
 from room import Room
 from player import Player
-
+from item import Item
 # Declare all the rooms
 
 room = {
@@ -23,10 +23,17 @@ earlier adventurers. The only exit is to the south."""),
 }
 
 #Choice Options
-choice_options = {
+game_items = {
 
+    'Golden Spatula': Item('Golden Spatula', 'This item is plated in gold and could be worth a lot of money'),
 
-    
+    'Wooden Spear': Item('Wooden Spear', 'This item is a good weapon for fishing && fighting'),
+
+    'Axe': Item('Axe', 'This item is a good weapon and can be used to cut down trees.'),
+
+    'Medalion': Item('Medalion', 'This item is rare and is worth a lot of money' ),
+
+    'Compass': Item('Compass', 'This item is worth very little money')
 }
 
 
@@ -42,14 +49,6 @@ room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
 
-def show_welcome_message():
-    welcome_message = 'Welcome to my game!'
-    print(welcome_message)
-
-def get_choice():
-    choice = input('[n] north [s] south [e] east [w] west [q] quit \n')
-    return choice_options[str(choice)]
-
 #
 # Main
 #
@@ -57,10 +56,10 @@ def get_choice():
 # Make a new player object that is currently in the 'outside' room.
 
 
-name = input('What is your gender? \n')
 
-newPlayer = Player(room['outside'])
-print(name)
+
+newPlayer = Player('Pat', room['outside'])
+
 
 # Write a loop that:
 #
@@ -73,8 +72,61 @@ print(name)
 #
 # If the user enters "q", quit the game.
 
+print(f'You are crrently: {newPlayer.current_room.name}\nDescription: {newPlayer.current_room.description}!\nWhere would you like to go?')
 
 
+user = (input("[n] North [s] South [e] East [w] West [q] Quit \n ").lower())
+
+
+"""
+1. set variable to t/f for while loop (turn variable to false with input to quit?)
+
+Any restrictions on what the comparative can be in while loop? whast the easiest in this situation?
+"""
+while True: 
+    
+    # quits game
+    if user =='q':
+        break
+    
+    #User is playing game
+    elif user == 'n':
+        if newPlayer.current_room.n_to:
+            newPlayer.current_room = newPlayer.current_room.n_to
+        else:
+            print('There is no room to the north')
+    
+    elif user == 's':
+        if newPlayer.current_room.s_to:
+            newPlayer.current_room = newPlayer.current_room.s_to
+        else:
+            print('There is no room to the South')
+    
+
+    elif user == 'e':
+        if newPlayer.current_room.e_to:
+            newPlayer.current_room = newPlayer.current_room.e_to
+        else:
+            print('There is no room to the East')
+
+    
+    elif user == 'e':
+        if newPlayer.current_room.w_to:
+            newPlayer.current_room = newPlayer.current_room.w_to
+        else:
+            print('There is no room to the West')
+
+    else:
+        break
+
+    print(f'You are crrently: {newPlayer.current_room.name}\nDescription: {newPlayer.current_room.description}!\nWhere would you like to go?')
+
+    user = (input("[n] North [s] South [e] East [w] West [q] Quit \n ").lower())
+
+    
+
+   
+    
 
 
 
@@ -83,6 +135,6 @@ print(name)
 
 
 """
-Player class needs access to Room class right?
+
 
 """
